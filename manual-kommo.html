@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Buscador de tutoriales en video del manual de onboarding de Kommo CRM.">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Manual de onboarding Kommo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEBEE; --card:#FCFCFD; --card-hover:#FFFFFF; --line:#DADADF; --line-soft:#E6E6EA;
+  --ink:#0B0B0D; --ink-2:#2E2E33; --muted:#7F8090;
+  --p-500:#7C47FF; --p-600:#6400E6; --p-top:#852EF7; --p-soft:#F3F1FF; --p-soft-2:#EAE6FF;
+  --mark:#EAE6FF; --mark-ink:#4B12C9;
+  --tab-shadow:0 2px 4px rgba(0,0,0,.06),0 4px 8px rgba(0,0,0,.1);
+  --focus:0 0 0 3px rgba(124,71,255,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#131316; --card:#17171A; --card-hover:#1C1C20; --line:#2B2B31; --line-soft:#232328;
+    --ink:#F4F4F5; --ink-2:#DFDFE2; --muted:#8E8FA0;
+    --p-500:#9B74FF; --p-soft:#231B3D; --p-soft-2:#2D2250;
+    --mark:#3A2A70; --mark-ink:#E6DDFF;
+    --tab-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 8px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#131316; --card:#17171A; --card-hover:#1C1C20; --line:#2B2B31; --line-soft:#232328;
+  --ink:#F4F4F5; --ink-2:#DFDFE2; --muted:#8E8FA0;
+  --p-500:#9B74FF; --p-soft:#231B3D; --p-soft-2:#2D2250;
+  --mark:#3A2A70; --mark-ink:#E6DDFF;
+  --tab-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 8px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:16px/1.5 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding-inline:16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:none;box-shadow:var(--focus)}
+
+/* Header */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;border-bottom:1px solid var(--line)}
+.brand{display:inline-flex;align-items:center;text-decoration:none;border-radius:8px}
+.brand img{display:block;height:44px;width:auto}
+.brand-side{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+header.top{padding-block:40px 20px;display:flex;flex-direction:column;gap:14px}
+@media (max-width:600px){.brand img{height:34px}.brand-side .txt{display:none}}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:var(--p-soft);color:var(--p-500);font-size:14px;font-weight:500;padding:4px 12px;border-radius:24px}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+h1{font-size:clamp(32px,6vw,48px);line-height:1.08;font-weight:600;letter-spacing:-.025em;margin:0;text-wrap:balance}
+.lede{color:var(--muted);font-size:18px;margin:0;max-width:58ch}
+.stats{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.stats span{display:inline-flex;align-items:center;gap:6px}
+.stats b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+
+/* Search */
+.searchbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:12px}
+.field{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 8px 0 16px;transition:border-color .15s,box-shadow .15s}
+.field:focus-within{border-color:var(--p-500);box-shadow:var(--focus)}
+.field svg{flex:none;color:var(--muted)}
+#q{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:17px;padding:14px 0;outline:none}
+#q::placeholder{color:var(--muted)}
+#q::-webkit-search-cancel-button{display:none}
+kbd{font:500 12px "Geist Mono",ui-monospace,monospace;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px;background:var(--ground)}
+
+/* Buttons (reference: primary gradient / secondary outline) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;font-size:14px;font-weight:500;line-height:1.3;padding:8px 16px;text-decoration:none;cursor:pointer;white-space:nowrap;transition:filter .15s,background-color .15s,border-color .15s}
+.btn-primary{color:#FCFCFD;background:linear-gradient(to top,var(--p-600),var(--p-top));border:1px solid rgba(255,255,255,.2);box-shadow:0 1px 2px rgba(100,0,230,.25)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-secondary{color:var(--ink-2);background:var(--card);border:1px solid var(--line)}
+.btn-secondary:hover{border-color:var(--muted)}
+.btn-ghost{background:transparent;border:1px solid transparent;color:var(--muted);padding:6px 10px}
+.btn-ghost:hover{color:var(--ink);background:var(--line-soft)}
+.btn svg{flex:none}
+
+/* Segmented tabs (reference: pricing tabs) */
+.tabs-row{display:flex;align-items:center;gap:12px;margin-top:12px}
+.tabs{flex:1;min-width:0;display:flex;gap:2px;overflow-x:auto;background:var(--line-soft);border-radius:10px;padding:4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:0;background:transparent;color:var(--muted);font-size:14px;padding:5px 10px;border-radius:6px;cursor:pointer;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}
+.tab:hover{color:var(--ink-2)}
+.tab .n{font:500 11px "Geist Mono",monospace;opacity:.8}
+.tab[aria-pressed="true"]{background:var(--card);color:var(--ink-2);box-shadow:var(--tab-shadow)}
+.tab[disabled]{opacity:.4;cursor:default}
+.status{font-size:14px;color:var(--muted);padding-top:10px;min-height:1.6em}
+.status b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+
+/* Accordion modules (reference: curriculum) */
+main{display:flex;flex-direction:column;gap:12px;padding-block:8px 72px}
+.module{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mod-head{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:14px;padding:20px 24px;cursor:pointer;border-radius:12px}
+.mod-head:hover{background:var(--card-hover)}
+.mod-head:focus-visible{box-shadow:inset var(--focus)}
+.chev{flex:none;color:var(--ink-2);transition:transform .2s ease}
+.module.open .chev{transform:rotate(90deg)}
+.mod-title{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.mod-title strong{font-size:18px;font-weight:500;line-height:24px;text-wrap:balance}
+.mod-title small{font-size:14px;color:var(--muted)}
+.mod-info{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);white-space:nowrap}
+.mod-info b{font-weight:400;font-variant-numeric:tabular-nums}
+.mod-body{border-top:1px solid var(--line-soft);padding:8px 16px 12px}
+.module:not(.open) .mod-body{display:none}
+
+.lesson{display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center;padding:12px 8px;border-radius:10px}
+.lesson + .lesson{border-top:1px solid var(--line-soft)}
+.lesson:hover{background:var(--ground)}
+.cam{grid-row:1/span 2;width:36px;height:36px;border-radius:8px;background:var(--p-soft);color:var(--p-500);display:grid;place-items:center}
+.cam.off{background:var(--line-soft);color:var(--muted)}
+.l-title{margin:0;font-size:16px;line-height:1.4;color:var(--ink);text-wrap:pretty}
+.l-meta{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted)}
+.idx{font:500 12px "Geist Mono",monospace;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;font-size:12px;padding:2px 8px;border-radius:24px;background:var(--p-soft);color:var(--p-500)}
+.pill.grey{background:var(--line-soft);color:var(--muted)}
+.pill.syn{background:transparent;border:1px dashed var(--p-500);color:var(--p-500);padding:1px 7px}
+.syn-note .pill{vertical-align:1px}
+.l-actions{grid-column:3;grid-row:1/span 2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.steps{grid-column:2/-1;margin:6px 0 2px;padding:12px 16px 12px 34px;background:var(--ground);border-radius:10px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
+.none{font-size:13px;color:var(--muted)}
+mark{background:var(--mark);color:var(--mark-ink);border-radius:4px;padding:0 2px}
+
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:12px;text-align:center;padding:48px 20px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px}
+.empty strong{color:var(--ink);font-size:18px;font-weight:500}
+.empty .btn{margin-top:8px}
+footer{font-size:13px;color:var(--muted);padding-block:0 40px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+@media (max-width:600px){
+  header.top{padding-block:32px 12px}
+  .mod-head{padding:16px}
+  .mod-info .lbl{display:none}
+  .lesson{grid-template-columns:auto 1fr}
+  .l-actions{grid-column:2;grid-row:auto;justify-content:flex-start;margin-top:6px}
+  .steps{grid-column:1/-1}
+  .tabs-row .btn-ghost .lbl{display:none}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <nav class="brandbar" aria-label="Educonnect">
+    <a class="brand" href="https://www.educonnect.mx" target="_blank" rel="noopener"><img src="data:image/webp;base64,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" alt="Educonnect" width="400" height="96"></a>
+    <div class="brand-side"><span class="txt">Centro de tutoriales</span><a class="btn btn-secondary" href="https://www.educonnect.mx" target="_blank" rel="noopener">Ir a educonnect.mx</a></div>
+  </nav>
+  <header class="top">
+    <span class="badge">Kommo CRM · Onboarding</span>
+    <h1>Manual de tutoriales</h1>
+    <p class="lede">Todos los videos del manual en un solo lugar. Busca por palabra clave o abre cada sección para ver sus tutoriales.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="searchbar">
+    <label class="field" for="q">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscar tutorial… ej. embudo, plantillas, Twilio" autocomplete="off" aria-label="Buscar tutoriales">
+      <kbd class="hint" id="kbd">/</kbd>
+      <button id="clear" class="btn btn-secondary" type="button" hidden>Limpiar</button>
+    </label>
+    <div class="tabs-row">
+      <div class="tabs" id="tabs" role="toolbar" aria-label="Filtrar por sección"></div>
+      <button id="toggleAll" class="btn btn-ghost" type="button" aria-label="Expandir o contraer todas las secciones">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg><span class="lbl">Expandir todo</span>
+      </button>
+    </div>
+    <div class="status" id="status" aria-live="polite"></div>
+  </div>
+
+  <main id="results"></main>
+  <footer>Contenido tomado del “Manual de onboarding. Kommo CRM”. <span class="hint">Pulsa <kbd>/</kbd> para buscar y <kbd>Esc</kbd> para limpiar.</span></footer>
+</div>
+
+<script>
+const DATA = [
+ ["Apertura de cuentas","",[
+  ["Cómo adquirir tu licencia de Kommo CRM","22/05/25",["https://www.loom.com/share/049d853663bf48fa9ad0d3366adc8656"]],
+  ["Cómo agregar nuevos usuarios al departamento de ventas","21/07/26",["https://www.loom.com/share/9fc02fe385a84782a0c1effb119cf765"]],
+  ["Jerarquía de usuarios y número de licencias","",["https://www.loom.com/share/084a0d0fe0ca4290a1bc192224ed8421"]],
+  ["Cómo cambiar contraseña de un usuario","21/07/26",["https://www.loom.com/share/45844fd61f814f47b3dab413349af316"]],
+ ]],
+ ["Configuración inicial","",[
+  ["Pasos para anclar Kommo CRM a tu navegador junto con WhatsApp Web","20/01/25",["https://www.loom.com/share/7e17c584f6ec421bb63c99d6870e7818"]],
+  ["Tour general de Kommo CRM","",["https://youtu.be/kViQwcFPMPg"]],
+  ["Pasa del menú clásico al nuevo menú de navegación en Kommo","",["https://www.loom.com/share/02720e309df94318a40a38d792c8344b"]],
+  ["Configuración de tu perfil y fotografía","21/01/25",["https://www.loom.com/share/9150cdc11813426289148a8b83d2679a"]],
+  ["Cómo vincular/conectar un dispositivo móvil a Kommo CRM en WhatsApp Lite","",["https://www.loom.com/share/35a91fbe07354b29982db3282c7abb37"]],
+  ["Cómo agregar otro número de teléfono a un embudo nuevo dentro de mi cuenta de Kommo CRM","",["https://www.loom.com/share/642fb8e8140747628723681ccc280726"]],
+ ]],
+ ["Personaliza tu CRM","Funciones elementales",[
+  ["Edita tu embudo de ventas (pipeline)","",["https://www.loom.com/share/e669e95ad58243209a9e5cf16cbc94cc"]],
+  ["Edita la tarjeta del lead en el embudo de ventas","",["https://www.loom.com/share/6985e45128804230a74cdd7b110f0003"]],
+  ["Crear campos personalizados para la ficha del prospecto","",["https://www.loom.com/share/f0d2608130814fd0ac12cdced12fdaa2"]],
+  ["Cómo renombrar un embudo existente","",["https://www.loom.com/share/baf3982702c84d1285b4cb0f6338b715"]],
+  ["Dar de alta leads (prospectos) de manera manual","",["https://www.loom.com/share/556eac6d4d574beba34bd8de08368c2c"]],
+ ]],
+ ["Primeros pasos de seguimiento","",[
+  ["Cómo calificar a un lead en la etapa correcta del embudo","4/02/25",["https://www.loom.com/share/5811ea6ea738430683d3b5af07e2b984"]],
+  ["Cómo filtrar mensajes urgentes que no han respondido","11/06/25",["https://www.loom.com/share/c992a0fc1dbe4a1788039aa206edc921"]],
+  ["Si tienes un equipo de ventas de más de 1 persona: cómo filtrar tus propios leads que no han respondido","",["https://www.loom.com/share/ff7577d99c864b26b251f5acc77c8bdd"]],
+  ["Cómo actualizar nombre/producto o servicio de interés de cada prospecto","21/01/25",["https://www.loom.com/share/9f0f96338cd14987ac0c6759f4024671"]],
+  ["Cómo cerrar y ganar / cerrar y descalificar prospectos","27/03/25",["https://www.loom.com/share/11ac556f771a43b998ac3e1f6d037dd1"]],
+  ["Todas las llamadas que hagas tienen que quedar registradas en tu CRM","21/01/25",["https://www.loom.com/share/c757709e541d47a6a545d120d14f750e"]],
+  ["Cómo agendar recordatorios","11/06/25",["https://www.loom.com/share/423cca9488b2412b8102a84e01cad06c"]],
+  ["Reasignar leads a otro ejecutivo de ventas","27/03/25",["https://www.loom.com/share/70b60e66e2c5479ea88637b3cd998bdf"]],
+  ["Cómo diferenciar a los leads que llegan de formulario y los que llegan por WhatsApp","20/01",["https://www.loom.com/share/c7daee64794e46f89694f654ed3f16c3"]],
+  ["Cómo activar el WhatsApp de leads que llegan de formularios","20/01",["https://www.loom.com/share/c1c3c421df6c48d090eb91a1d98b87d8"]],
+  ["Mandar mensajes y alertas internas entre equipos de venta","",["https://www.loom.com/share/a28e90e41c9640b9a7e25d412d1bf1ed"]],
+  ["¿Cómo auditar el seguimiento y labor de ventas de tu equipo? Indicadores de desempeño","27/01/25",["https://www.loom.com/share/ee107672cc254f87889f87c59ffb4c89"]],
+ ]],
+ ["Plantillas","Alta y creación",[
+  ["Crea plantillas con campos dinámicos","",["https://www.loom.com/share/1d334b9928ae41aeb7b4278ef610babd"]],
+  ["Activar plantillas y dar un seguimiento ágil","4/02/25",["https://www.loom.com/share/168257a068ae41b785b7ead3f9f37148"]],
+  ["Envía adjuntos: videos y material de marketing","4/02/25",["https://www.loom.com/share/6b107cbfc679449fb7e99be213ecd4f5"]],
+  ["Usa ChatGPT para crear plantillas por etapa en el embudo","",["https://www.loom.com/share/161b34893b954244b4546614a1d27892"]],
+  ["Alta de plantillas y flujos de conversación","10/12/24",["https://www.loom.com/share/32df6471625e4287be55f1c93c032659"]],
+  ["Plantillas por etapa en el embudo","4/02/25",["https://www.loom.com/share/a002a1c080ea443bbfbbff3f0fcfb986"]],
+  ["Alta de plantillas en el Excel de la línea recta","",["https://www.loom.com/share/8d90c33fafb4460faea1535c02036e55"]],
+ ]],
+ ["Técnicas de seguimiento y tips","",[
+  ["Audita la calidad del seguimiento: varias formas para filtrar leads fríos o por última fecha de contacto","",["https://www.loom.com/share/7f94e5ef95654ba29d51d01d9cd3d18a"]],
+  ["Filtrar leads que no han recibido una respuesta","7/05/25",["https://www.loom.com/share/2bb7bdb63e904bc7b9307e8b5b61133a"]],
+  ["Actualización masiva de leads","",["https://www.loom.com/share/a1011f55af164da1912dd1b4a1cfd2a6"]],
+  ["Registrar etiquetas de seguimiento para saber cuántos contactos lleva un lead","21/01/25",["https://www.loom.com/share/fb7d98acf41c429c8916d4ebd8450351"]],
+  ["Todo el contacto con un lead debe quedar registrado","21/01/25",["https://www.loom.com/share/fe3dfe4a1f9641e993de82c2fbc3a31b"]],
+  ["Proceso ideal para dar un seguimiento rápido y eficaz","",["https://www.loom.com/share/2212eff2214c45fa93f1fa05d96c3c9d"]],
+  ["¿Cómo generar valor con tus plantillas?","21/01/25",["https://www.loom.com/share/56a509ddef2b4c90bc850bb7f60db14e"]],
+ ]],
+ ["Embudos y administración de leads","",[
+  ["Cómo dar de alta nuevos embudos en tu CRM y mover leads entre embudos","",["https://www.loom.com/share/a13f314f6cf64c84b5df365e07d80e8b"]],
+  ["Pasos para registrar varias compras/oportunidades de un mismo cliente o empresa","27/01/25",["https://www.loom.com/share/6f6daff0c45748dd9f34e125a335717a"]],
+  ["Cómo crear un embudo postventa","",["https://www.loom.com/share/bdc215d6666849f5b0f9761684846f4a"]],
+  ["Cómo anclar varios contactos en un mismo lead","",["https://www.loom.com/share/fc47bf1a110949ae887d950254d0d5a9"]],
+ ]],
+ ["Búsqueda y filtrado de leads","",[
+  ["¿Qué son las etiquetas (tags) y para qué sirven?","21/01/25",["https://www.loom.com/share/d31c63b3ade14fc8bf691f29b2afda6b"]],
+  ["Cómo buscar a un lead en la barra de búsqueda y hacer búsquedas avanzadas por etiqueta o fecha de creación","21/01/25",["https://www.loom.com/share/fe0803d1897941e0a38a31966436e22b"]],
+  ["Añadir razones/motivos para descalificar un lead","",["https://www.loom.com/share/2f0e07a94b4f4c0c9378815270adbda0"]],
+ ]],
+ ["Reporteo","",[
+  ["Filtrar leads por última fecha de contacto","",["https://www.loom.com/share/7f94e5ef95654ba29d51d01d9cd3d18a"]],
+  ["Corre un reporte de mensajes entrantes y salientes de WhatsApp","",["https://www.loom.com/share/a08142815da1410db5126024cb08dacc"]],
+  ["Dashboard: más información sobre los widgets de tu dashboard","",["https://www.kommo.com/support/crm/dashboard-widgets-advanced/#average-reply-time"],"Dashboard"],
+  ["Cómo setear objetivos de venta por equipo o ejecutivo","",["https://www.loom.com/share/ddcf236a6ec3434e9ef3268b6aff600e"],"Objetivos de venta"],
+  ["Conoce tu ciclo promedio de la venta","",["https://www.loom.com/share/d8eddecbe62e4b0396c8e2853a184b0b"],"Objetivos de venta"],
+  ["Cómo correr un reporte de leads ganados/inscritos/cerrados","",[],"Objetivos de venta"],
+ ]],
+ ["Integraciones","",[
+  ["Vincula tu FanPage de Facebook y cuenta de Instagram para recibir mensajes y comentarios dentro de Kommo CRM","01/07/25",["https://www.loom.com/share/ef3d733d553f4f8087dbe6d48d029c67"],"Redes sociales"],
+  ["Cómo vincular mis lead forms de Meta a un embudo que yo elija","",["https://www.loom.com/share/f5e2c34ad5dc4ccf8a673cf162c2cc7f"],"Redes sociales"],
+  ["Cómo vincular tus lead forms web y campañas de Meta a Kommo","21/01/25",["https://www.loom.com/share/bf79939b7d8941f18975221ad56a3aaf"],"Redes sociales"],
+  ["Cómo vincular correos de Gmail a Kommo CRM","",["https://www.loom.com/share/7ff6f63790c14d9cb2f32d1883d07aee"],"Correo electrónico"],
+  ["Cómo crear plantillas de correo electrónico en Kommo CRM","",["https://www.loom.com/share/905c40b93f094bdd8fe77039293af89b"],"Correo electrónico"],
+  ["Cómo hacer llamadas desde Kommo CRM (requiere cuenta activa de Twilio)","",["https://www.loom.com/share/1ed0065e91824169b7e4c80a4c86a58b"],"Telefonía digital"],
+  ["Cómo recargar saldo en Twilio","",["https://www.loom.com/share/1e9d02bad3954698bedbdb02ecc8753f"],"Telefonía digital"],
+  ["Twilio: configuración paso a paso","",["https://www.loom.com/share/74def539413d42669045dfad5b60e0fd","https://login.twilio.com/u/signup","https://console.twilio.com/account/upgrade"],"Telefonía digital",[
+    "Crear una cuenta gratuita de Twilio.",
+    "Hacer upgrade a la cuenta de pago y seguir los pasos de verificación de datos personales.",
+    "Crear paquete de regulaciones (constancia de situación fiscal y comprobante de domicilio).",
+    "Comprar un número local.",
+    "Instalar la app de Twilio desde Kommo CRM y configurar Account SID y Auth Token (pestaña “Dashboard” en Twilio).",
+    "Delimitar permisos geográficos si la app no funciona en Kommo.",
+    "Hacer una llamada de prueba.",
+    "Recargar saldo a Twilio."]],
+  ["Cómo hacer llamadas desde Kommo CRM","01/07/25",["https://www.loom.com/share/068a617dfbd647beafcf543b14b06e0c"],"Telefonía digital"],
+  ["Cómo escuchar las grabaciones de las llamadas hechas con GoTo + Kommo CRM","01/07/25",["https://www.loom.com/share/8eb94bff2a4447a9ad9e70d335a5043e"],"Telefonía digital"],
+ ]],
+ ["Herramientas avanzadas y apps","Widgets",[
+  ["Tour general de las apps de Kommo","",["https://www.loom.com/share/f2fa13eaf9984300aad61ca57d1fea2e"]],
+  ["Importa tus bases de datos de manera masiva","",["https://www.loom.com/share/0d677a10733545deac2915e11297df3e","https://www.loom.com/share/c333d76e6a484cfa99b39fbe5777da3a"]],
+ ]],
+ ["Automatizaciones","",[
+  ["Cómo crear chatbots de fuera de la oficina","21/01/25",["https://www.loom.com/share/e9d57a7811e948639147ca967d93f90b"]],
+  ["¿Cómo crear recordatorios automatizados?","",["https://www.loom.com/share/5674764bba2b4a168ca4f5e04cb29cf1"]],
+ ]],
+ ["WhatsApp Business API","",[
+  ["Fundamentos de envíos masivos WA Business API","",["https://www.loom.com/share/35339d278b4349c28f61959d6c69fe1c"]],
+ ]],
+ ["Soporte técnico","",[
+  ["¿Cómo contactar a soporte para cualquier problema técnico?","",["https://www.loom.com/share/753d83b6cf484491be9bd871fd089d32"]],
+  ["Error: has alcanzado el límite de sesiones","",["https://www.loom.com/share/88c6f972363740cb81cc16bbd5bbd107","https://www.loom.com/share/e91b78fb7a544a189179c9056513d758"]],
+  ["No me llegan los mensajes a Kommo CRM o se tardan en llegar","4/02/25",["https://www.loom.com/share/568bc8b9022647989c97fa5e4b1cd8e8"],"Mensajería"],
+  ["Problemas con el envío de mensajes: WA, Messenger o DMs","",["https://www.loom.com/share/2a45e25948be46cbb9287707fb9a3fd4"],"Mensajería"],
+  ["Mando mensajes pero salen del celular de mi compañero de admisiones o de ventas","",["https://www.loom.com/share/4dfc715ad2964bb2a248ef4f8fe1c37e"],"Mensajería"],
+  ["Tengo varios embudos (pipelines) en mi cuenta maestra y al editarlos de manera individual no se guardan los cambios","",["https://www.loom.com/share/e05dc16c961941e7b0595dc22664ae66"],"Embudos y tarjeta de los leads"],
+  ["No puedo editar leads, tienen un candado. No me deja crear leads nuevos","",["https://www.loom.com/share/cd8a88f1295240139b4639b9c142ddae"],"Embudos y tarjeta de los leads"],
+  ["Fusionar leads duplicados que detecta el sistema","20/01",["https://www.loom.com/share/6f5cb639ba844d77998aa5ebfd51c114"],"Problemas con leads"],
+  ["Fusionar leads duplicados de manera manual","",["https://www.loom.com/share/27380e4f852a4f9896d3fb42fee69ab4"],"Problemas con leads"],
+  ["Me llegan demasiados leads duplicados, ¿qué hago?","",["https://www.loom.com/share/06aa45a6374549b7ad1aa7163b3a1cb6"],"Problemas con leads"],
+  ["Dar de alta campos personalizados en un orden específico","",["https://www.loom.com/share/8a677473aab14fa186b4e58f18ced04a"],"Problemas con leads"],
+  ["Mis campos personalizados aparecen cortados, ¿los puedo ver completos?","",["https://www.loom.com/share/5e13be60dae448b2b5b84179148ef646"],"Problemas con leads"],
+  ["Cómo acceder a los módulos grabados del taller de ventas","",["https://www.loom.com/share/d1a3d3f1eeeb4c2d9e0b264c0c9c980e","https://hotmart.com/en/club/educonnect-marketing-educativo/products/"],"Taller de ventas"],
+ ]],
+];
+
+const items = [];
+DATA.forEach(([cat, catSub, list]) => list.forEach(([title, upd, links, sub, steps]) => {
+  items.push({cat, catSub, sub: sub || "", title, upd, links, steps: steps || []});
+}));
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+items.forEach((it, i) => { it.n = i + 1; it.hay = norm([it.title, it.cat, it.catSub, it.sub, it.steps.join(" ")].join(" ")); });
+const cats = DATA.map(d => d[0]);
+const catSubs = Object.fromEntries(DATA.map(d => [d[0], d[1]]));
+const videoCount = items.reduce((a, it) => a + it.links.filter(u => u.includes("loom.com") || u.includes("youtu")).length, 0);
+
+// ---- Sinónimos: cada grupo son palabras que significan lo mismo para quien busca ----
+const SYN = [
+  ["embudo","pipeline","funnel","tuberia","flujo de venta","proceso de venta"],
+  ["etapa","fase","columna","estatus","status","paso del embudo"],
+  ["lead","prospecto","cliente","interesado","oportunidad","contacto"],
+  ["whatsapp","wa","whats","wsp","wpp","wasap","guasap"],
+  ["mensaje","chat","conversacion","dm","mensajeria","inbox","bandeja"],
+  ["plantilla","template","machote","respuesta rapida","respuestas rapidas","guion","script"],
+  ["llamada","llamar","telefonia","twilio","goto","marcar","voip"],
+  ["usuario","vendedor","ejecutivo","asesor","agente","colaborador","empleado","miembro"],
+  ["etiqueta","tag","label","categoria"],
+  ["filtrar","filtro","buscar","busqueda","encontrar","localizar"],
+  ["reporte","reporteo","informe","estadistica","analitica","metrica","indicador","kpi","dashboard","desempeno","rendimiento","productividad"],
+  ["recordatorio","tarea","alarma","aviso","pendiente","agendar","agenda","notificacion","alerta"],
+  ["seguimiento","follow up","followup","dar seguimiento","nutrir"],
+  ["automatizacion","automatizar","automatico","automatizado","bot","chatbot","robot","salesbot"],
+  ["facebook","fb","meta","instagram","ig","redes sociales","red social","fanpage","messenger"],
+  ["formulario","lead form","leadform","landing","pagina web","sitio web"],
+  ["correo","email","e-mail","mail","gmail","outlook"],
+  ["contrasena","password","clave","iniciar sesion","login"],
+  ["licencia","suscripcion","pago","comprar","adquirir","precio","factura"],
+  ["error","problema","falla","fallo","no funciona","bug","no me deja","no llegan"],
+  ["soporte","ayuda","asistencia","tecnico"],
+  ["duplicado","repetido","doble","fusionar","unir","combinar","merge"],
+  ["campo","campos personalizados","dato","custom field"],
+  ["importar","subir","cargar","base de datos","excel","csv","migrar","bd"],
+  ["ganar","ganado","cerrar","cierre","venta cerrada","inscrito","convertir"],
+  ["descalificar","perdido","perder","rechazado","motivo","razon","no interesado"],
+  ["reasignar","transferir","asignar","responsable","cambiar de vendedor"],
+  ["celular","movil","telefono","dispositivo","smartphone"],
+  ["masivo","masiva","difusion","broadcast","campana","envio masivo","bulk"],
+  ["adjunto","archivo","pdf","material","documento","imagen","multimedia"],
+  ["objetivo","cuota","meta de venta","target"],
+  ["tarjeta","ficha","card","detalle del lead"],
+  ["navegador","chrome","pestana","anclar","fijar"],
+  ["perfil","foto","fotografia","avatar"],
+  ["configuracion","configurar","ajuste","setup","personalizar"],
+  ["crear","dar de alta","alta","agregar","anadir","nuevo","registrar"],
+  ["integracion","integrar","vincular","conectar","enlazar","sincronizar"],
+  ["grabacion","grabar","audio","escuchar"],
+  ["curso","taller","capacitacion","modulo","entrenamiento"],
+  ["chatgpt","ia","inteligencia artificial","gpt","ai"],
+  ["sesion","conexion","sesiones"],
+  ["editar","modificar","cambiar","actualizar","renombrar"],
+  ["equipo","team","departamento","area"],
+  ["postventa","posventa","post venta","recompra","retencion"],
+  ["saldo","recarga","recargar","credito"],
+];
+const STOP = new Set("de del la las el los lo en un una unos unas y o a al para por con sin mi mis tu tus su sus como que se me le les es son hay mas muy ya quiero puedo hacer".split(" "));
+const stem = w => w.length > 4 && w.endsWith("es") ? w.slice(0, -2) : (w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w);
+const synIndex = new Map();   // palabra (o frase) → grupos
+const PHRASES = [];           // frases de varias palabras, de la más larga a la más corta
+SYN.forEach((g, gi) => g.forEach(p => {
+  const key = p.includes(" ") ? p : stem(p);
+  if(!synIndex.has(key)) synIndex.set(key, new Set());
+  synIndex.get(key).add(gi);
+  if(p.includes(" ")) PHRASES.push(p);
+}));
+PHRASES.sort((a, b) => b.length - a.length);
+
+// Convierte la búsqueda en términos; cada término trae su palabra literal y sus sinónimos
+function parseQuery(raw){
+  let q = " " + norm(raw).replace(/[^a-z0-9ñ\s-]/g, " ").replace(/\s+/g, " ") + " ";
+  const terms = [];
+  PHRASES.forEach(p => { if(q.includes(" " + p + " ")){ terms.push(p); q = q.replace(" " + p + " ", " "); } });
+  let words = q.trim().split(" ").filter(Boolean);
+  const content = words.filter(w => !STOP.has(w));
+  terms.push(...(content.length ? content : words));
+  return terms.map(t => {
+    const lit = t.includes(" ") ? t : stem(t);
+    const alts = new Set();
+    (synIndex.get(lit) || []).forEach(gi => SYN[gi].forEach(p => { if(p !== t && stem(p) !== lit) alts.add(p); }));
+    const altRx = [...alts].map(a => [a, toRx(a)]);
+    return {raw: t, lit, alts: [...alts], litRx: t.includes(" ") || lit.length <= 3 ? toRx(lit) : null, altRx};
+  });
+}
+// Raíz flexible: "importar" encuentra "importa", "base de datos" encuentra "bases de datos"
+const root = w => { const r = w.replace(/(es|s|ar|er|ir|o|a|e)$/, ""); return r.length >= 5 ? r : w; };
+const toRx = p => new RegExp("(^|[^a-z0-9])(" + p.split(" ").map(w => root(w).replace(/[-]/g, "\\-") + "[a-z0-9]*").join("\\s+") + ")", "g");
+const rxTest = (rx, hay) => { rx.lastIndex = 0; return rx.test(hay); };
+// Devuelve null si no coincide; si coincide, qué sinónimo se usó (o "" si fue literal)
+function matchTerm(hay, term){
+  if((term.lit.length > 3 ? hay.includes(term.lit) : rxTest(term.litRx, hay)) || (term.litRx && rxTest(term.litRx, hay))) return "";
+  for(const [a, rx] of term.altRx) if(rxTest(rx, hay)) return a;
+  return null;
+}
+
+const $ = id => document.getElementById(id);
+const $q = $("q"), $clear = $("clear"), $tabs = $("tabs"), $res = $("results"), $status = $("status"), $toggle = $("toggleAll"), $kbd = $("kbd");
+let activeCat = "";
+const open = new Set([cats[0]]);
+
+$("stats").innerHTML =
+  `<span><b>${items.length}</b> tutoriales</span><span><b>${cats.length}</b> secciones</span><span><b>${videoCount}</b> videos</span>`;
+
+const ICON = {
+  chev: `<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>`,
+  cam: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="13" height="12" rx="2.5"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></svg>`,
+  doc: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>`,
+  play: `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>`,
+  ext: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`,
+  list: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>`,
+};
+
+function esc(s){return s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function hl(text, terms){
+  if(!terms.length) return esc(text);
+  const map = [];
+  for(let i=0;i<text.length;i++){ const c = norm(text[i]); for(let k=0;k<c.length;k++) map.push(i); }
+  const n = norm(text), marks = new Array(text.length).fill(false);
+  const mark = (a, b) => { for(let k=a;k<b;k++) marks[map[k]] = true; };
+  const paintRx = rx => { rx.lastIndex = 0; let m; while((m = rx.exec(n))){ const st = m.index + m[1].length; mark(st, st + m[2].length); if(!m[0].length) rx.lastIndex++; } };
+  terms.forEach(t => {
+    if(t.lit.length > 3){ let p = n.indexOf(t.lit); while(p !== -1){ mark(p, p + t.lit.length); p = n.indexOf(t.lit, p + 1); } }
+    if(t.litRx) paintRx(t.litRx);
+    t.altRx.forEach(([, rx]) => paintRx(rx));
+  });
+  let out = "", on = false;
+  for(let i=0;i<text.length;i++){
+    if(marks[i] !== on){ out += marks[i] ? "<mark>" : "</mark>"; on = marks[i]; }
+    out += esc(text[i]);
+  }
+  return out + (on ? "</mark>" : "");
+}
+function linkBtn(u, i, total, primaryUsed){
+  const isVideo = u.includes("loom.com") || u.includes("youtu");
+  let label = "Abrir enlace";
+  if(u.includes("youtu")) label = "Ver en YouTube";
+  else if(u.includes("loom.com")) label = total > 1 && i > 0 ? `Video ${i+1}` : "Ver video";
+  else if(u.includes("twilio.com/u/signup")) label = "Crear cuenta Twilio";
+  else if(u.includes("console.twilio")) label = "Upgrade Twilio";
+  else if(u.includes("hotmart")) label = "Acceso al curso";
+  else if(u.includes("kommo.com")) label = "Ver guía";
+  const primary = !primaryUsed && isVideo;
+  return [primary, `<a class="btn ${primary ? "btn-primary" : "btn-secondary"}" href="${esc(u)}" target="_blank" rel="noopener">${isVideo ? ICON.play : ICON.ext}${label}</a>`];
+}
+
+function renderTabs(counts, total){
+  const mk = (val, label, n) => `<button type="button" class="tab" data-cat="${esc(val)}" aria-pressed="${activeCat===val}" ${n || val==="" || activeCat===val ? "" : "disabled"}>${esc(label)}<span class="n">${n}</span></button>`;
+  $tabs.innerHTML = mk("", "Todas", total) + cats.map(c => mk(c, c, counts[c]||0)).join("");
+}
+
+function render(){
+  const raw = $q.value.trim();
+  const terms = raw ? parseQuery(raw) : [];
+  $clear.hidden = !raw; $kbd.hidden = !!raw;
+  // Cada tutorial guarda cuántos términos coinciden y por qué sinónimos
+  const scored = items.map(it => {
+    const via = []; let hits = 0;
+    for(const t of terms){ const m = matchTerm(it.hay, t); if(m !== null){ hits++; if(m) via.push(m); } }
+    it.via = via; it.hits = hits; return it;
+  });
+  let matchQ = scored.filter(it => it.hits === terms.length);
+  // Si ninguno tiene todas las palabras, mostrar los que tienen al menos una (como hace Google)
+  let partial = false;
+  if(!matchQ.length && terms.length > 1){ matchQ = scored.filter(it => it.hits > 0); partial = matchQ.length > 0; }
+  // Más palabras coincidentes primero; luego literales antes que sinónimos
+  matchQ.sort((a, b) => b.hits - a.hits || a.via.length - b.via.length || a.n - b.n);
+  const counts = {}; matchQ.forEach(it => counts[it.cat] = (counts[it.cat]||0) + 1);
+  renderTabs(counts, matchQ.length);
+  const shown = activeCat ? matchQ.filter(it => it.cat === activeCat) : matchQ;
+  const forceOpen = !!(terms.length || activeCat);
+
+  $status.innerHTML = forceOpen
+    ? `<b>${shown.length}</b> ${shown.length === 1 ? "resultado" : "resultados"}${raw ? ` para “${esc(raw)}”` : ""}${activeCat ? ` en ${esc(activeCat)}` : ""}`
+    : `Mostrando las <b>${cats.length}</b> secciones del manual`;
+  if(partial) $status.innerHTML += ` <span class="syn-note">· ningún tutorial tiene todas las palabras; mostramos los más parecidos</span>`;
+  const usedSyn = [...new Set(matchQ.flatMap(it => it.via))];
+  if(usedSyn.length) $status.innerHTML += ` <span class="syn-note">· incluye resultados de ${usedSyn.slice(0, 6).map(s => `<span class="pill syn">${esc(s)}</span>`).join(" ")}${usedSyn.length > 6 ? " …" : ""}</span>`;
+
+  if(!shown.length){
+    $res.innerHTML = `<div class="empty"><strong>No hay tutoriales que coincidan</strong>Prueba con menos palabras o con un sinónimo (ej. “pipeline” → “embudo”).<button type="button" class="btn btn-primary" id="reset">Ver todos los tutoriales</button></div>`;
+    $("reset").onclick = () => { $q.value = ""; activeCat = ""; render(); $q.focus(); };
+    $toggle.hidden = true;
+    return;
+  }
+  const groups = {};
+  shown.forEach(it => (groups[it.cat] ||= []).push(it));
+  const visibleCats = cats.filter(c => groups[c]);
+  $toggle.hidden = forceOpen;
+  const allOpen = visibleCats.every(c => open.has(c));
+  $toggle.querySelector(".lbl").textContent = allOpen ? "Contraer todo" : "Expandir todo";
+
+  $res.innerHTML = visibleCats.map(c => {
+    const isOpen = forceOpen || open.has(c);
+    const list = groups[c];
+    const id = "m" + cats.indexOf(c);
+    return `<section class="module${isOpen ? " open" : ""}">
+      <button type="button" class="mod-head" data-cat="${esc(c)}" aria-expanded="${isOpen}" aria-controls="${id}">
+        ${ICON.chev}
+        <span class="mod-title"><strong>${hl(c, terms)}</strong>${catSubs[c] ? `<small>${esc(catSubs[c])}</small>` : ""}</span>
+        <span class="mod-info">${ICON.list}<b>${list.length}</b><span class="lbl">${list.length === 1 ? "tutorial" : "tutoriales"}</span></span>
+      </button>
+      <div class="mod-body" id="${id}">${list.map(it => {
+        let used = false;
+        const btns = it.links.map((u, i) => { const [p, h] = linkBtn(u, i, it.links.length, used); used ||= p; return h; }).join("");
+        const hasVideo = it.links.some(u => u.includes("loom.com") || u.includes("youtu"));
+        return `<div class="lesson">
+          <span class="cam${it.links.length ? "" : " off"}">${hasVideo ? ICON.cam : ICON.doc}</span>
+          <p class="l-title">${hl(it.title, terms)}</p>
+          <div class="l-actions">${btns || `<span class="none">Sin video todavía</span>`}</div>
+          <div class="l-meta"><span class="idx">T${String(it.n).padStart(2,"0")}</span>${it.sub ? `<span class="pill grey">${hl(it.sub, terms)}</span>` : ""}${it.upd ? `<span class="pill">Actualizado ${esc(it.upd)}</span>` : ""}${it.via && it.via.length && terms.length ? `<span class="pill syn" title="Aparece porque buscaste un sinónimo">≈ ${esc([...new Set(it.via)].join(", "))}</span>` : ""}</div>
+          ${it.steps.length ? `<ol class="steps">${it.steps.map(s => `<li>${hl(s, terms)}</li>`).join("")}</ol>` : ""}
+        </div>`; }).join("")}</div>
+    </section>`;
+  }).join("");
+}
+
+$q.addEventListener("input", render);
+$clear.addEventListener("click", () => { $q.value = ""; render(); $q.focus(); });
+$tabs.addEventListener("click", e => {
+  const b = e.target.closest(".tab"); if(!b || b.disabled) return;
+  activeCat = activeCat === b.dataset.cat ? "" : b.dataset.cat; render();
+});
+$res.addEventListener("click", e => {
+  const h = e.target.closest(".mod-head"); if(!h) return;
+  const c = h.dataset.cat, sec = h.parentElement, now = !sec.classList.contains("open");
+  sec.classList.toggle("open", now); h.setAttribute("aria-expanded", now);
+  now ? open.add(c) : open.delete(c);
+  const allOpen = cats.every(x => open.has(x));
+  $toggle.querySelector(".lbl").textContent = allOpen ? "Contraer todo" : "Expandir todo";
+});
+$toggle.addEventListener("click", () => {
+  const allOpen = cats.every(c => open.has(c));
+  cats.forEach(c => allOpen ? open.delete(c) : open.add(c)); render();
+});
+document.addEventListener("keydown", e => {
+  if(e.key === "/" && document.activeElement !== $q){ e.preventDefault(); $q.focus(); }
+  if(e.key === "Escape" && document.activeElement === $q){ $q.value = ""; render(); }
+});
+render();
+</script>
+
+</body>
+</html>
